@@ -10,11 +10,11 @@ $(document).ready(function() {
     var vowelCount = journal.letterCount("vowels");
     var consonantCount = journal.letterCount("consonants");
     var preview = journal.getTeaser();
+    var outputs = ['wordCount', 'vowelCount', 'consonantCount', 'preview']
     $('#solution').append("<h2>" + title + "</h2>");
-    $('#solution').append("<p>" + wordCount + "</p>");
-    $('#solution').append("<p>" + vowelCount + "</p>");
-    $('#solution').append("<p>" + consonantCount + "</p>");
-    $('#solution').append("<p>" + preview + "</p>");
+    outputs.forEach(function(output) {
+      eval("$('#solution').append('<p>' + " + output + " + '</p>')");
+    });
   });
 });
 
