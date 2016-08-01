@@ -12,17 +12,17 @@ Journal.prototype.letterCount = function (type) {
   var words = this.body.toLowerCase.split();
   var typeCount = [];
   var letters = [];
-  words.forEach(word) {
+  words.forEach(function (word) {
     letters.concat(word.split(''));
-  }
-  letters.forEach(letter) {
-    if (type = 'vowels' && letter === ('a' || 'e' || 'i' || 'o' || 'u')) {
+  });
+  letters.forEach(function (letter) {
+    if (type === 'vowels' && letter === ('a' || 'e' || 'i' || 'o' || 'u')) {
       typeCount.push(letter);
     }
     else {
       typeCount.push(letter);
     }
-  }
+  });
   return typeCount.length;
 };
 
