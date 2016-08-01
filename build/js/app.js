@@ -1,1 +1,76 @@
-!function t(n,o,e){function r(i,p){if(!o[i]){if(!n[i]){var a="function"==typeof require&&require;if(!p&&a)return a(i,!0);if(u)return u(i,!0);var s=new Error("Cannot find module '"+i+"'");throw s.code="MODULE_NOT_FOUND",s}var l=o[i]={exports:{}};n[i][0].call(l.exports,function(t){var o=n[i][1][t];return r(o?o:t)},l,l.exports,t,n,o,e)}return o[i].exports}for(var u="function"==typeof require&&require,i=0;i<e.length;i++)r(e[i]);return r}({1:[function(t,n,o){function e(t,n){this.title=t,this.body=n}e.prototype.wordCount=function(){var t=this.body.split();return t.length},e.prototype.letterCount=function(t){var n=this.body.toLowerCase.split(),o=[],e=[];return n.forEach(function(t){e.concat(t.split(""))}),e.forEach(function(n){(t="a"===n)?o.push(n):o.push(n)}),o.length},e.prototype.getTeaser=function(){var t=[],n=this.body.split();if(n.length<=8)t=n;else for(var o=0;o<=8;o++)t.push(n[o]);return t.join(" ")},o.journalModule=e},{}],2:[function(t,n,o){var e=t("./../js/journal.js").journalModule;$(document).ready(function(){$("journal-form").submit(function(t){t.preventDefault();var n=$("#title").val(),o=$("#body").val(),r=new e(n,o),u=r.wordCount,i=r.letterCount("vowels"),p=r.letterCount("consonants"),a=r.getTeaser;$("#solution").append("<h2>"+n+"</h2>"),$("#solution").append("<p>"+u+"</p>"),$("#solution").append("<p>"+i+"</p>"),$("#solution").append("<p>"+p+"</p>"),$("#solution").append("<p>"+a+"</p>")})}),$(document).ready(function(){$("#signup").submit(function(t){t.preventDefault();var n=$("#email").val();$("#signup").hide(),$("#solution").prepend("<p>Thank you, "+n+" has been added to our list!</p>")})})},{"./../js/journal.js":1}]},{},[2]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+function Journal(title, body) {
+  this.title = title;
+  this.body = body;
+}
+
+Journal.prototype.wordCount = function() {
+  var words = this.body.split(' ');
+  return words.length;
+};
+
+Journal.prototype.letterCount = function(type) {
+  var words = this.body.toLowerCase().split(' ');
+  var typeCount = [];
+  var letters = [];
+  words.forEach(function(word) {
+    letters = letters.concat(word.split(''));
+  });
+  letters.forEach(function(letter) {
+    if (type === 'vowels' && letter === ('a' || 'e' || 'i' || 'o' || 'u')) {
+      typeCount.push(letter);
+    }
+    else if (type === 'consonants' && letter !== ('a' || 'e' || 'i' || 'o' || 'u')) {
+      typeCount.push(letter);
+    }
+  });
+  return typeCount.length;
+};
+
+Journal.prototype.getTeaser = function() {
+  var firstEight = [];
+  var words = this.body.split(' ');
+  if (words.length <= 8)  {
+    firstEight = words;
+  }
+  else {
+    for (var i = 0; i <= 8; i++) {
+      firstEight.push(words[i]);
+    }
+  }
+  return firstEight.join(" ");
+};
+
+exports.journalModule = Journal;
+
+},{}],2:[function(require,module,exports){
+var Journal = require('./../js/journal.js').journalModule;
+
+$(document).ready(function() {
+  $('#journal-form').submit(function(event) {
+    event.preventDefault();
+    var title = $('#title').val();
+    var body = $('#body').val();
+    var journal = new Journal(title, body);
+    var wordCount = journal.wordCount();
+    var vowelCount = journal.letterCount("vowels");
+    var consonantCount = journal.letterCount("consonants");
+    var preview = journal.getTeaser();
+    $('#solution').append("<h2>" + title + "</h2>");
+    $('#solution').append("<p>" + wordCount + "</p>");
+    $('#solution').append("<p>" + vowelCount + "</p>");
+    $('#solution').append("<p>" + consonantCount + "</p>");
+    $('#solution').append("<p>" + preview + "</p>");
+  });
+});
+
+$(document).ready(function(){
+  $('#signup').submit(function(event){
+    event.preventDefault();
+    var email = $('#email').val();
+    $('#signup').hide();
+    $('#solution').prepend('<p>Thank you, ' + email + ' has been added to our list!</p>');
+  });
+});
+
+},{"./../js/journal.js":1}]},{},[2]);

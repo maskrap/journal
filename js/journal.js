@@ -3,32 +3,32 @@ function Journal(title, body) {
   this.body = body;
 }
 
-Journal.prototype.wordCount = function () {
-  var words = this.body.split();
+Journal.prototype.wordCount = function() {
+  var words = this.body.split(' ');
   return words.length;
 };
 
-Journal.prototype.letterCount = function (type) {
-  var words = this.body.toLowerCase.split();
+Journal.prototype.letterCount = function(type) {
+  var words = this.body.toLowerCase().split(' ');
   var typeCount = [];
   var letters = [];
-  words.forEach(function (word) {
-    letters.concat(word.split(''));
+  words.forEach(function(word) {
+    letters = letters.concat(word.split(''));
   });
-  letters.forEach(function (letter) {
+  letters.forEach(function(letter) {
     if (type === 'vowels' && letter === ('a' || 'e' || 'i' || 'o' || 'u')) {
       typeCount.push(letter);
     }
-    else {
+    else if (type === 'consonants' && letter !== ('a' || 'e' || 'i' || 'o' || 'u')) {
       typeCount.push(letter);
     }
   });
   return typeCount.length;
 };
 
-Journal.prototype.getTeaser = function () {
+Journal.prototype.getTeaser = function() {
   var firstEight = [];
-  var words = this.body.split();
+  var words = this.body.split(' ');
   if (words.length <= 8)  {
     firstEight = words;
   }
