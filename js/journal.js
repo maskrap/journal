@@ -39,3 +39,5 @@ Journal.prototype.getTeaser = function () {
   }
   return firstEight.join(" ");
 };
+
+exports.journalModule = Journal;
