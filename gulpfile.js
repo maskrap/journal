@@ -18,6 +18,7 @@ var lib = require('bower-files')({
     }
   }
 });
+var browserSync = require('browser-sync').create();
 
 gulp.task('concatInterface', function() {
   return gulp.src(['./js/*-interface.js'])
@@ -70,4 +71,29 @@ gulp.task('build', ['clean'], function(){
     gulp.start('jsBrowserify');
   }
   gulp.start('bower');
+});
+
+gulp.task('serve', function() {
+  browserSync.init({
+    server: {
+      baseDir: "./",
+      index: "index.html"
+    }
+  });
+
+  gulp.watch(['js/*.js'], ['jsBuild']);
+  gulp.watch(['bower.json'], ['bowerBuild']);
+  gulp.watch(['*.html'], ['htmlBuild']);
+});
+
+gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
+  browserSync.reload();
+});
+
+gulp.task('bowerBuild', ['bower'], function(){
+  browserSync.reload();
+});
+
+gulp.task('htmlBuild', function() {
+  browserSync.reload();
 });

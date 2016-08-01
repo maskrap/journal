@@ -29,11 +29,11 @@ Journal.prototype.letterCount = function(type) {
 Journal.prototype.getTeaser = function() {
   var firstEight = [];
   var words = this.body.split(' ');
-  if (words.length <= 8)  {
+  if (words.length <= 7)  {
     firstEight = words;
   }
   else {
-    for (var i = 0; i <= 8; i++) {
+    for (var i = 0; i <= 7; i++) {
       firstEight.push(words[i]);
     }
   }
